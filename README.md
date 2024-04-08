@@ -4,7 +4,7 @@ Path of Exile filter creation tool. First pass with functionality. Adds the abil
 No error checking. Be careful if you are relying on this in game. If you mess up, it will probably just dump out a garbage file.
 
 ## Installation
-Download and run the installer from the [releases](https://github.com/Philimanjar0/philter/releases). This will add a windows context menu on right click to automatically convert the .philter to .filter.
+Download and run the installer from the [releases](https://github.com/Philimanjar0/philter/releases/latest). This will add a windows context menu on right click to automatically convert the .philter to .filter.
 
 ## Uninstallation
 To uninstall, you can either:
@@ -23,11 +23,11 @@ $var_name = {
     contents
 }
 ```
-Then the value within the curly braces will replace anything with `%var_name`. Note the usages of `$` and `%`.
+Then the value within the curly braces will replace any instance of `%var_name`. Note the usages of `$` and `%`.
 ### Converting the file
 Either:
 - Right click on the file and select `convert to .filter`
-- .\convert_philter.exe your_file.philter
+- `.\convert_philter.exe your_file.philter`
 
 ## Example
 Id like to use the same styling for multiple filter blocks. Id like maps and currency to both be stylized the same way, but if I want to change the styling, I dont want to have to change multiple blocks. 
