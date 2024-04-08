@@ -52,6 +52,14 @@ Show
 converts to this .filter
 ```
 Show
+    Class "Maps"
+    SetFontSize 40
+    SetTextColor 0 0 0
+    SetBorderColor 0 0 0
+    SetBackgroundColor 0 0 0
+
+Show
+    Class "Stackable Currency"
     SetFontSize 40
     SetTextColor 0 0 0
     SetBorderColor 0 0 0
