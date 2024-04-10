@@ -1,10 +1,41 @@
-$test = {
-    SetFontSize 40
-    SetTextColor 0 0 0
-    SetBorderColor 0 0 0
-    SetBackgroundColor 0 0 0
+$red = {
+    100 0 0
+}
+
+$white = {
+    255 255 255
+}
+
+$grey = {
+    70 70 70
+}
+
+$large_font_size = {
+    40
+}
+
+$maps_base = {
+    SetFontSize %large_font_size
+    SetTextColor %white
+    SetBorderColor %white
+    SetBackgroundColor %grey
+}
+
+$red_maps = {
+    %maps_base
+    SetBackgroundColor %red
+}
+
+$white_maps = {
+    %maps_base 
+    SetBackgroundColor %grey 
 }
 
 Show
     Class "Maps"
-    %test
+    MapTier >= 11
+    %red_maps 
+
+Show
+    Class "Maps"
+    %white_maps

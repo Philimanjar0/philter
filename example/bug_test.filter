@@ -1,0 +1,5 @@
+Show
+    Class "Maps"
+    MapTier >= 11
+    SetBorderColor 255 255 255
+    SetBackgroundColor 100 0 0
