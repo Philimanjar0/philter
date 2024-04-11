@@ -36,7 +36,6 @@ for matchNum, match in enumerate(matches, start=1):
     filter_key = match.group(1)
     # remove brackets, strip all leading and trailing whitespace
     filter_val = match.group(2).strip('\{\}').strip()
-    # print(f"Found {filter_key} with value \n    {filter_val}")
     regex_to_replace.inject_value(".*?")
     nested_matches = re.finditer(regex_to_replace.get_regex(), filter_val, re.MULTILINE)
 
