@@ -1,10 +1,11 @@
+# Maps example
+# Reuse the same section multiple times
 Show
     Class "Maps"
     MapTier >= 11
     SetFontSize 40
     SetTextColor 255 255 255
     SetBorderColor 255 255 255
-    SetBackgroundColor 70 70 70
     SetBackgroundColor 100 0 0
 
 Show
@@ -13,4 +14,10 @@ Show
     SetTextColor 255 255 255
     SetBorderColor 255 255 255
     SetBackgroundColor 70 70 70
-    SetBackgroundColor 70 70 70
+
+# Rares example
+# combine multiple variables onto one line
+Show
+    Rarity Rare
+    ItemLevel >= 83
+    BaseType = "Apothecary's Gloves" "Glorious Plate"

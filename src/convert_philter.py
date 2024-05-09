@@ -23,8 +23,8 @@ class Regex:
         else:
             return None
 
-regex_entry = Regex("(?s)\$", "*? = (\{.*?\s\})(?=\s|$)")
-regex_to_replace = Regex("(?s)\%(", ")(\s*?)$")
+regex_entry = Regex("(?s)\$", "*? = (\{.*?\s\}\n*)(?=.)")
+regex_to_replace = Regex("(?s)\%(", ")(?=$|\%|\s)")
 
 # Get all key-values
 regex_entry.inject_value("([^\n ]*)")
@@ -35,7 +35,7 @@ filter_entries = {}
 for matchNum, match in enumerate(matches, start=1):
     filter_key = match.group(1)
     # remove brackets, strip all leading and trailing whitespace
-    filter_val = match.group(2).strip('\{\}').strip()
+    filter_val = match.group(2).strip().strip('\{\}').strip()
     regex_to_replace.inject_value(".*?")
     nested_matches = re.finditer(regex_to_replace.get_regex(), filter_val, re.MULTILINE)
 

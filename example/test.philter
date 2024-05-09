@@ -14,11 +14,11 @@ $large_font_size = {
     40
 }
 
+# Maps example
 $maps_base = {
     SetFontSize %large_font_size
     SetTextColor %white
     SetBorderColor %white
-    SetBackgroundColor %grey
 }
 
 $red_maps = {
@@ -39,3 +39,18 @@ Show
 Show
     Class "Maps"
     %white_maps
+
+# Rares example
+$atlas_bases = {
+    "Apothecary's Gloves"
+}
+
+$body_armors = {
+    "Glorious Plate"
+}
+
+# combine multiple variables onto one line
+Show
+    Rarity Rare
+    ItemLevel >= 83
+    BaseType = %atlas_bases %body_armors
