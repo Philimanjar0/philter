@@ -27,14 +27,14 @@ $red_maps = {
 }
 
 $white_maps = {
-    %maps_base 
-    SetBackgroundColor %grey 
+    %maps_base
+    SetBackgroundColor %grey
 }
 
 Show
     Class "Maps"
     MapTier >= 11
-    %red_maps 
+    %red_maps
 
 Show
     Class "Maps"

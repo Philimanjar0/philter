@@ -1,5 +1,4 @@
 # Maps example
-# Reuse the same section multiple times
 Show
     Class "Maps"
     MapTier >= 11
