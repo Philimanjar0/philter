@@ -73,5 +73,6 @@ Show
 Building the executable (requires pyinstaller)
 - `.\build.bat`
 - alternatively: `pyinstaller --onefile .\src\convert_philter.py`
+
 Building the installer (requires NSIS)
 - NSIS > compose NSI scripts > your_script.nsi
