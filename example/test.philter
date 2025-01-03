@@ -1,51 +1,51 @@
-$red = {
+var red = {
     100 0 0
 }
 
-$white = {
+var white = {
     255 255 255
 }
 
-$grey = {
+var grey = {
     70 70 70
 }
 
-$large_font_size = {
+var large_font_size = {
     40
 }
 
 # Maps example
-$maps_base = {
-    SetFontSize %large_font_size
-    SetTextColor %white
-    SetBorderColor %white
+var maps_base = {
+    SetFontSize $large_font_size
+    SetTextColor $white
+    SetBorderColor $white
 }
 
-$red_maps = {
-    %maps_base
-    SetBackgroundColor %red
+var red_maps = {
+    $maps_base
+    SetBackgroundColor $red
 }
 
-$white_maps = {
-    %maps_base
-    SetBackgroundColor %grey
+var white_maps = {
+    $maps_base
+    SetBackgroundColor $grey
 }
 
 Show
     Class "Maps"
     MapTier >= 11
-    %red_maps
+    $red_maps
 
 Show
     Class "Maps"
-    %white_maps
+    $white_maps
 
 # Rares example
-$atlas_bases = {
+var atlas_bases = {
     "Apothecary's Gloves"
 }
 
-$body_armors = {
+var body_armors = {
     "Glorious Plate"
 }
 
@@ -53,4 +53,4 @@ $body_armors = {
 Show
     Rarity Rare
     ItemLevel >= 83
-    BaseType = %atlas_bases %body_armors
+    BaseType = $atlas_bases $body_armors

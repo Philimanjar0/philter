@@ -8,6 +8,8 @@ with open(file_path, 'r') as file:
     philter = file.read()
 
 # Helper class for regex'n
+# Helps create a regex string by concatenating a prefix, suffix, and value.
+# Useful for finding many slight variations in of the same pattern (like variable decleration)
 class Regex:
     def __init__(self, prefix, suffix):
         self.prefix = prefix
@@ -23,31 +25,48 @@ class Regex:
         else:
             return None
 
-regex_entry = Regex("(?s)\$", "*? = (\{.*?\s\}\n*)(?=.)")
-regex_to_replace = Regex("(?s)\%(", ")(?=$|\%|\s)")
+# this regex finds variable declarations.
+#   Declarations start with 'var'.
+#   First capture group is the entire block. This is used to delete the declaration.
+#   Second capture group is the variable name.
+#   Third capture group is the variables value.
+decleration_regex = Regex("var (", ")\s*=\s*\{([\s\S]*?)\}\s*")
+decleration_regex.inject_value("\w*") # Initially match any variable names.
 
-# Get all key-values
-regex_entry.inject_value("([^\n ]*)")
-matches = re.finditer(regex_entry.get_regex(), philter, re.MULTILINE)
-filter_entries = {}
+# this regex finds variable usage.
+#   Usage starts with '$'
+#   First capture group what should be replaced. EG $variable_name
+#   Second capture group is the variable name.
+usage_regex = Regex("(\$(", ")(?=$|\W))")
 
-# For each entry, find any %<var> to replace, then remove the entry
-for matchNum, match in enumerate(matches, start=1):
-    filter_key = match.group(1)
-    # remove brackets, strip all leading and trailing whitespace
-    filter_val = match.group(2).strip().strip('\{\}').strip()
-    regex_to_replace.inject_value(".*?")
-    nested_matches = re.finditer(regex_to_replace.get_regex(), filter_val, re.MULTILINE)
+# Get all key-values.
+declarations = re.finditer(decleration_regex.get_regex(), philter, re.MULTILINE)
 
-    # Resolve nested references
-    filter_val = re.sub(regex_to_replace.get_regex(), lambda m : filter_entries[m.group(1).strip()], filter_val, flags=re.MULTILINE)
+# dictionary representation of key-value pairs.
+variables_dict = {}
 
-    filter_entries[filter_key] = filter_val
+# TODO remove inline comments in a preprocessing step.
+# For each variable declaration, find any usage to replace.
+for matchNum, match in enumerate(declarations, start=1):
+    var_name = match.group(1)
+    var_value = match.group(2).strip()
 
-    regex_entry.inject_value(filter_key)
-    philter = re.sub(regex_entry.get_regex(), '', philter)
-    regex_to_replace.inject_value(filter_key)
-    philter = re.sub(regex_to_replace.get_regex(), filter_entries[filter_key], philter, flags=re.MULTILINE)
+    # find any replace any nested usage
+    usage_regex.inject_value("\w*")
+    var_value = re.sub(usage_regex.get_regex(), lambda match : variables_dict[match.group(2)], var_value, flags=re.MULTILINE)
+
+    # print("Replacing " + var_name + " with \n    " + var_value)
+
+    # add the key-value
+    variables_dict[var_name] = var_value
+
+    # remove the declaration
+    philter = re.sub(match.re, '', philter)
+
+    # replace all of var_name usages with var_value
+    usage_regex.inject_value(var_name)
+    # print("Replacing using " + usage_regex.get_regex())
+    philter = re.sub(usage_regex.get_regex(), variables_dict[var_name], philter, flags=re.MULTILINE)
 
 # cleanup and remove any leading newlines
 philter = philter.strip()
