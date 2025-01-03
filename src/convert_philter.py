@@ -7,6 +7,31 @@ file_prefix = file_path.removesuffix(".philter")
 with open(file_path, 'r') as file:
     philter = file.read()
 
+included_files = set()
+import_regex = "import (\w*.philter)"
+
+# helper to recursively resolve imports. This ill only import each file once.
+# Circular or duplicate dependencies are resolved by just skipping any subsequent imports
+def resolve_include(base_contents):
+    match = re.search(import_regex, base_contents, re.MULTILINE)
+    if (match == None):
+        # no imports found, return
+        return base_contents
+    file = match.group(1)
+    if (file in included_files):
+        # If this import has already been used, delete the import statement and continue
+        print("warning: found circular or duplicate dependency.")
+        base_contents = re.sub(match.re, "", base_contents)
+    else:
+        included_files.add(file)
+        with open(file, 'r') as f:
+            include_contents = f.read()
+            base_contents = re.sub(match.re, include_contents, base_contents, count=1)
+    # recursively resolve imports
+    return resolve_include(base_contents)
+
+philter = resolve_include(philter)
+
 # Helper class for regex'n
 # Helps create a regex string by concatenating a prefix, suffix, and value.
 # Useful for finding many slight variations in of the same pattern (like variable decleration)

@@ -1,3 +1,5 @@
+import file.philter
+
 var red = {
     100 0 0
 }
