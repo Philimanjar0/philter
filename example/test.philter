@@ -1,20 +1,4 @@
-import file.philter
-
-var red = {
-    100 0 0
-}
-
-var white = {
-    255 255 255
-}
-
-var grey = {
-    70 70 70
-}
-
-var large_font_size = {
-    40
-}
+import common.philter
 
 # Maps example
 var maps_base = {
