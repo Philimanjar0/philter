@@ -12,18 +12,19 @@ To uninstall, you can either:
 - Run the uninstaller directly. It is added to your chosen install directory.
 
 ## Editor
-I recommend using vscode with the .filter plugin developed by Neversink. This will work for both .filter and .philter files.
-https://marketplace.visualstudio.com/items?itemName=NeverSink.poe-filter-language
+I recommend using the `.philter` language extension for vscode.
 
 ## Usage
 ### Editing the file
 Declare variables in .philter with 
 ```
-$var_name = {
+var var_name = {
     contents
 }
 ```
-Then the value within the curly braces will replace any instance of `%var_name`. Note the usages of `$` and `%`.
+Then the value within the curly braces will replace any instance of `$var_name`.
+### Importing files
+The compiler supports importing. Simply use `import filename.philter`. This is useful if you would like to seperate out commonly used variables or even parts of your filter.
 ### Converting the file
 Either:
 - Right click on the file and select `convert to .filter`
@@ -34,6 +35,8 @@ Id like to use the same styling for multiple filter blocks. Id like maps and cur
 
 Example .philter file
 ```
+import common.philter
+
 $test = {
     SetFontSize 40
     SetTextColor 0 0 0
